@@ -67,7 +67,6 @@ while process == "":
     GPIO.output(volup,GPIO.LOW)
   if pos == 5:
     process=GetShell()
-
   pos = pos + 1
   if pos > 10:
     pos = 1
