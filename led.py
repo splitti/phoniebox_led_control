@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 
 import signal
 import os
 #import time
 from time import sleep
 import RPi.GPIO as GPIO
+from subprocess import check_output
+
 
 prev=5
 play=6
@@ -14,22 +15,21 @@ volup=24
 voldown=23
 
 def sigterm_handler(signal, frame):
-  GPIO.output(volup,GPIO.LOW)
-  sleep(0.1)
-  GPIO.output(voldown,GPIO.LOW)
-  sleep(0.1)
-  GPIO.output(next,GPIO.LOW)
-  sleep(0.1)
-  GPIO.output(play,GPIO.LOW)
-  sleep(0.1)
-  GPIO.output(prev,GPIO.LOW)
-  os._exit(0)
+    GPIO.output(volup,GPIO.LOW)
+    sleep(0.1)
+    GPIO.output(voldown,GPIO.LOW)
+    sleep(0.1)
+    GPIO.output(next,GPIO.LOW)
+    sleep(0.1)
+    GPIO.output(play,GPIO.LOW)
+    sleep(0.1)
+    GPIO.output(prev,GPIO.LOW)
+    os._exit(0)
 
 def GetShell():
-  from subprocess import check_output
-  process = check_output("/bin/ps -ef | grep mopidy | grep -v grep | awk '{print $2}'", shell=True)
-  process = process.decode()
-  return process
+    process = check_output("/bin/ps -ef | grep mpd | grep -v grep | awk '{print $2}'", shell=True)
+    process = process.decode()
+    return process
 
 signal.signal(signal.SIGTERM, sigterm_handler)
 GPIO.setmode(GPIO.BCM)
@@ -78,5 +78,5 @@ while process == "":
 #GPIO.output(play,GPIO.HIGH)
 dummy = ""
 while dummy == "":
-  dummy = ""
-  sleep(3600)
+    dummy = ""
+    sleep(3600)
