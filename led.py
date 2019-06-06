@@ -44,38 +44,31 @@ GPIO.setup(play,GPIO.OUT)
 process=""
 pos = 1
 while process == "":
-  print( process )
-  if pos == 1:
-    GPIO.output(prev,GPIO.HIGH)
-  if pos == 2:
-    GPIO.output(play,GPIO.HIGH)
-  if pos == 3:
-    GPIO.output(next,GPIO.HIGH)
-  if pos == 4:
-    GPIO.output(voldown,GPIO.HIGH)
-  if pos == 5:
-    GPIO.output(volup,GPIO.HIGH)
-  if pos == 6:
-    GPIO.output(prev,GPIO.LOW)
-  if pos == 7:
-    GPIO.output(play,GPIO.LOW)
-  if pos == 8:
-    GPIO.output(next,GPIO.LOW)
-  if pos == 9:
-    GPIO.output(voldown,GPIO.LOW)
-  if pos == 10:
-    GPIO.output(volup,GPIO.LOW)
-  if pos == 5:
-    process=GetShell()
-  pos = pos + 1
-  if pos > 10:
-    pos = 1
-  sleep(0.05)
-#GPIO.output(next,GPIO.HIGH)
-#GPIO.output(volup,GPIO.HIGH)
-#GPIO.output(voldown,GPIO.HIGH)
-#GPIO.output(prev,GPIO.HIGH)
-#GPIO.output(play,GPIO.HIGH)
+    print( process )
+    if pos == 1:
+        GPIO.output(prev,GPIO.HIGH)
+    elif pos == 2:
+        GPIO.output(play,GPIO.HIGH)
+    elif pos == 3:
+        GPIO.output(next,GPIO.HIGH)
+    elif pos == 4:
+        GPIO.output(voldown,GPIO.HIGH)
+    elif pos == 5:
+        GPIO.output(volup,GPIO.HIGH)
+        process=GetShell()
+    elif pos == 6:
+        GPIO.output(prev,GPIO.LOW)
+    elif pos == 7:
+        GPIO.output(play,GPIO.LOW)
+    elif pos == 8:
+        GPIO.output(next,GPIO.LOW)
+    elif pos == 9:
+        GPIO.output(voldown,GPIO.LOW)
+    elif pos == 10:
+        GPIO.output(volup,GPIO.LOW)    
+        pos = 0
+    pos += 1
+    sleep(0.05)
 dummy = ""
 while dummy == "":
     dummy = ""
