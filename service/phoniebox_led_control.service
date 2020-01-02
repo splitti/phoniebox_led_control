@@ -1,10 +1,11 @@
 [Unit]
 Description=Phoniebox LED-Buttons-Control Service
+DefaultDependencies=false
 
 [Service]
 #Restart=always
 WorkingDirectory=/home/pi/phoniebox_led_control
-ExecStart=/usr/bin/python3 /home/pi/phoniebox_led_control/./led.py
+ExecStart=/usr/bin/python3 /home/pi/phoniebox_led_control/./gpiozero_led.py
 
 [Install]
 WantedBy=multi-user.target
