@@ -7,38 +7,38 @@ from time import sleep
 from subprocess import check_output
 from gpiozero import PWMLED, Button, LED, LEDBoard
 
-prev=PWMLED(5)
-play=PWMLED(6)
-next=PWMLED(22)
-volup=PWMLED(24)
-voldown=PWMLED(23)
+led_prev=PWMLED(5)
+led_play=PWMLED(6)
+led_next=PWMLED(22)
+led_volup=PWMLED(24)
+led_voldown=PWMLED(23)
 
 def sigterm_handler(signal, frame):
-    prev.off()
+    led_prev.off()
     sleep(0.1)
-    play.off()
+    led_play.off()
     sleep(0.1)
-    next.off()
+    led_next.off()
     sleep(0.1)
-    voldown.off()
+    led_voldown.off()
     sleep(0.1)
-    volup.off()
+    led_volup.off()
     sleep(0.1)
     os._exit(0)
 
-def GetShell():
+def getshell():
     process = check_output("/bin/ps -ef | grep mpd | grep -v grep | awk '{print $2}'", shell=True)
     process = process.decode()
     return process
 
 signal.signal(signal.SIGTERM, sigterm_handler)
 
-def LedOn(ledname):
+def ledon(ledname):
     for x in range(100):
         ledname.value = x * 0.001
         sleep(0.02)
 
-def LedOff(ledname):
+def ledoff(ledname):
     for x in range(100,-1,-1):
         ledname.value = x * 0.001
         sleep(0.02)
@@ -49,20 +49,20 @@ direction = 0
 while process == "":
     print( process )
     if pos == 1:
-        #LedOn(prev)
-        prev.pulse(n=1,fade_in_time=0.2,fade_out_time=0.5)
+        #ledon(led_prev)
+        led_prev.pulse(n=1,fade_in_time=0.2,fade_out_time=0.5)
         #if direction == 1:
         sleep(0.2)
         direction = 0
     elif pos == 2:
-        play.pulse(n=1,fade_in_time=0.2,fade_out_time=0.4)
+        led_play.pulse(n=1,fade_in_time=0.2,fade_out_time=0.4)
     elif pos == 3:
-        next.pulse(n=1,fade_in_time=0.2,fade_out_time=0.3)
+        led_next.pulse(n=1,fade_in_time=0.2,fade_out_time=0.3)
     elif pos == 4:
-        voldown.pulse(n=1,fade_in_time=0.2,fade_out_time=0.4)
+        led_voldown.pulse(n=1,fade_in_time=0.2,fade_out_time=0.4)
     elif pos == 5:
-        volup.pulse(n=1,fade_in_time=0.2,fade_out_time=0.5)
-        process=GetShell()
+        led_volup.pulse(n=1,fade_in_time=0.2,fade_out_time=0.5)
+        process=getshell()
         #pos = 0
         direction = 1
         sleep(0.2)
@@ -72,14 +72,14 @@ while process == "":
         pos -= 1
     sleep(0.09)
 
-prev.on()
+led_prev.on()
 sleep(0.1)
-play.on()
+led_play.on()
 sleep(0.1)
-next.on()
+led_next.on()
 sleep(0.1)
-voldown.on()
+led_voldown.on()
 sleep(0.1)
-volup.on()
+led_volup.on()
 
 signal.pause()
