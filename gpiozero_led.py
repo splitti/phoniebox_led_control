@@ -94,7 +94,10 @@ def leds_on():
     LED_VOLUP.on()
 
 def main():
-    signal.pause()
+    dummy = ""
+    while dummy == "":
+        sleep(5)
+
 
 if __name__ == "__main__":
     initiate_animation()
